@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+apply plugin: 'maven-publish'
+
+// tag::repositories[]
+repositories { 
+    mavenCentral() 
+}
+// end::repositories[]
+group = "org.emu.common"
+version = "1.0.1"
+
+// tag::jar[]
+jar {
+    baseName = 'org.emu.common'
+    version = '1.0.1'
+}
+// end::jar[]
+
+// tag::dependencies[]
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+  	//runtimeOnly  "com.fasterxml.jackson.core:jackson-core"  	
+  	//implementation "com.fasterxml.jackson.core:jackson-annotations:2.10.4"
+    testImplementation "junit:junit:4.12"
+}
+
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username 'admin'
+                password 'byszLQH9PWkFzag'
+            }
+            url "https://nexus.diracatom.com:8443/repository/maven-releases/"
+        }
+    }
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+// end::dependencies[]
